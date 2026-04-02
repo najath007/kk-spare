@@ -1,0 +1,69 @@
+.bike-selector-container {
+  background-color: var(--color-white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-top: -3rem;
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.bike-selector-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.bike-selector-header h2 {
+  font-size: 1.25rem;
+  color: var(--color-hash-dark);
+}
+
+.icon-accent {
+  color: var(--color-accent);
+}
+
+.bike-selector-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.select-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-hash-light);
+}
+
+.select-group select {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  background-color: var(--color-offwhite);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-hash-dark);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.select-group select:focus {
+  border-color: var(--color-accent);
+}
+
+.select-group select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

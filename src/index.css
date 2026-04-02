@@ -1,0 +1,106 @@
+:root {
+  --color-white: #ffffff;
+  --color-offwhite: #f5f6f8;
+  --color-hash-dark: #2A2D34; /* Hash Grey */
+  --color-hash-light: #4c535e; /* Hash Grey Light */
+  --color-accent: #FF5100; /* Vibrant Orange for speed/motorcycles */
+  --color-accent-hover: #E04600;
+  --color-success: #10B981;
+
+  --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-logo: 'Impact', 'Inter black', sans-serif; /* Slanted/Sharp */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-offwhite);
+  color: var(--color-hash-dark);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Common Layout Utilities */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+
+/* Badges */
+.badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.badge.hot { background-color: #ef4444; color: white; }
+.badge.new { background-color: #3b82f6; color: white; }
+.badge.sale { background-color: var(--color-accent); color: white; }
+.badge.compatible { background-color: var(--color-success); color: white; }
+
+/* Buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.btn-primary {
+  background-color: var(--color-accent);
+  color: white;
+}
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+.btn-secondary {
+  background-color: var(--color-hash-dark);
+  color: white;
+}
+.btn-secondary:hover {
+  background-color: var(--color-hash-light);
+}
+
+.title-slant {
+  font-family: var(--font-logo);
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -1px;
+}

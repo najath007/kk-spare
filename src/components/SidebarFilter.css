@@ -1,0 +1,82 @@
+.sidebar {
+  background-color: var(--color-white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 1rem;
+}
+
+.filter-section {
+  margin-bottom: 2rem;
+}
+
+.filter-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-offwhite);
+  color: var(--color-hash-dark);
+}
+
+.filter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--color-hash-light);
+  transition: all 0.2s;
+}
+
+.filter-item:hover, .filter-item.active {
+  background-color: var(--color-offwhite);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.filter-item .count {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.promo-banner {
+  background-color: var(--color-offwhite);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.promo-banner h4 {
+  margin-bottom: 0.25rem;
+  color: var(--color-hash-dark);
+}
+
+.promo-banner p {
+  font-size: 0.8rem;
+  color: var(--color-hash-light);
+  margin-bottom: 0.5rem;
+}
+
+.expert-chat {
+  background-color: #fff7ed; /* Light orange tint */
+  border-color: #fed7aa;
+}

@@ -1,0 +1,148 @@
+.header {
+  background-color: var(--color-white);
+  border-bottom: 2px solid var(--color-offwhite);
+  padding: 1rem 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text {
+  font-family: var(--font-logo);
+  font-size: 2.5rem;
+  color: #FF6600;
+  font-style: italic;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+  position: relative;
+}
+
+.logo-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-accent);
+  transform: skewX(-15deg);
+}
+
+.tagline {
+  font-size: 0.75rem;
+  color: var(--color-hash-light);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+.search-bar {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  padding-right: 3rem;
+  border: 2px solid var(--color-hash-dark);
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+  font-family: var(--font-main);
+  background-color: var(--color-offwhite);
+}
+
+.search-bar input:focus {
+  border-color: var(--color-accent);
+}
+
+.search-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 3rem;
+  background-color: var(--color-hash-dark);
+  color: var(--color-white);
+  border-radius: 0 3px 3px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar input:focus+.search-btn {
+  background-color: var(--color-accent);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.cart-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-hash-dark);
+}
+
+.cart-counter {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: bold;
+  height: 20px;
+  min-width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0 6px;
+  border: 2px solid var(--color-white);
+}
+
+.cart-label {
+  font-weight: 600;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .cart-label {
+    display: block;
+  }
+}

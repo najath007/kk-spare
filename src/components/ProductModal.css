@@ -1,0 +1,205 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: var(--card-bg, #ffffff);
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--text-color, #333);
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: var(--accent-color, #ff4c4c);
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.modal-image-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.modal-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.modal-info-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-meta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.modal-title {
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  color: var(--text-color, #333);
+}
+
+.modal-price {
+  font-size: 1.5rem;
+  color: var(--accent-color, #ff4c4c);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.modal-stock {
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.modal-warranty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+  padding: 10px;
+  background-color: #f0f7ff;
+  border-radius: 6px;
+  color: #0056b3;
+}
+
+.icon-accent {
+  color: #0056b3;
+}
+
+.modal-compatibility {
+  margin-bottom: 25px;
+}
+
+.modal-compatibility h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+
+.modal-compatibility ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #555;
+}
+
+.modal-compatibility li {
+  margin-bottom: 5px;
+}
+
+.modal-add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  margin-top: auto;
+}
+
+.modal-related {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.modal-related h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.2rem;
+}
+
+.related-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.related-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #eaeaea;
+  transition: all 0.2s;
+}
+
+.related-chip:hover {
+  border-color: var(--accent-color, #ff4c4c);
+  background-color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.related-chip img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.related-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.related-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.related-price {
+  font-size: 0.8rem;
+  color: var(--accent-color, #ff4c4c);
+}
+
+@media (max-width: 768px) {
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+}

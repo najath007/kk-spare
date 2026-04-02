@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { FaPhoneAlt, FaSearch, FaUserCircle } from 'react-icons/fa';
+import React from 'react';
+import { FaPhoneAlt, FaSearch, FaUserCircle, FaShoppingCart } from 'react-icons/fa';
 import './Header.css';
 import AuthModal from './AuthModal';
 
-export default function Header({ user, onLoginSuccess, onLogout, searchQuery, onSearchQueryChange }) {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, setIsAuthModalOpen, onLoginSuccess, onLogout, searchQuery, onSearchQueryChange }) {
   return (
     <header className="header">
       <div className="container header-container">
@@ -27,6 +26,14 @@ export default function Header({ user, onLoginSuccess, onLogout, searchQuery, on
           <div className="contact-info">
             <FaPhoneAlt className="icon-accent" />
             <span>123456789</span>
+          </div>
+
+          <div className="cart-container" style={{ marginRight: '1rem' }}>
+            <button className="cart-btn" onClick={onCartClick}>
+              <FaShoppingCart size={24} />
+              {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
+            </button>
+            <span className="cart-label">Cart</span>
           </div>
 
           <div className="auth-container" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>

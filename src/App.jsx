@@ -7,15 +7,19 @@ import SidebarFilter from './components/SidebarFilter';
 import ProductGrid from './components/ProductGrid';
 import ProductModal from './components/ProductModal';
 import Footer from './components/Footer';
+import CartDrawer from './components/CartDrawer';
+import { addToCart, getCart } from './api';
 import './App.css';
 
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [cart, setCart] = useState([]); // local cart array (items with product + quantity)
-  const cartCount = cart.reduce((sum, i) => sum + i.qty, 0);
   const [searchQuery, setSearchQuery] = useState('');
   
+  const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   const [user, setUser] = useState(() => {
     try {
       const saved = localStorage.getItem('user');
@@ -31,8 +35,28 @@ function App() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     setUser(null);
+    setCartCount(0);
   };
   
+  const refreshCart = async () => {
+    if (!user) {
+      setCartCount(0);
+      return;
+    }
+    try {
+      const data = await getCart();
+      if (data && data.items) {
+        setCartCount(data.items.reduce((sum, i) => sum + i.quantity, 0));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    refreshCart();
+  }, [user]);
+
   // Filtering States
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedBrandFilter, setSelectedBrandFilter] = useState(null);
@@ -57,12 +81,18 @@ function App() {
       .catch(() => setLoading(false));
   }, [searchQuery, selectedCategory, selectedBrandFilter, selectedBike]);
 
-  const handleAddToCart = (product) => {
-    setCart(prev => {
-      const existing = prev.find(i => i.id === product.id);
-      if (existing) return prev.map(i => i.id === product.id ? { ...i, qty: i.qty + 1 } : i);
-      return [...prev, { ...product, qty: 1 }];
-    });
+  const handleAddToCart = async (product) => {
+    if (!user) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+    try {
+      await addToCart(product.id, 1);
+      refreshCart();
+      setCartDrawerOpen(true);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleFindParts = (bike) => {
@@ -81,6 +111,10 @@ function App() {
     <div className="app-wrapper">
       <Header 
         user={user}
+        cartCount={cartCount}
+        onCartClick={() => setCartDrawerOpen(true)}
+        isAuthModalOpen={isAuthModalOpen}
+        setIsAuthModalOpen={setIsAuthModalOpen}
         onLoginSuccess={handleLoginSuccess}
         onLogout={handleLogout}
         searchQuery={searchQuery}
@@ -129,6 +163,13 @@ function App() {
           onViewDetails={handleViewDetails}
         />
       )}
+
+      <CartDrawer 
+        isOpen={cartDrawerOpen}
+        onClose={() => setCartDrawerOpen(false)}
+        user={user}
+        refreshCart={refreshCart}
+      />
     </div>
   );
 }

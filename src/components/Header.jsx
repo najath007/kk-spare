@@ -7,7 +7,7 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
   return (
     <header className="header">
       <div className="container header-container">
-        <div className="logo-container">
+        <div className="logo-container" onClick={() => window.location.href = '/'} style={{ cursor: 'pointer' }} title="Go to Home">
           <h1 className="logo-text">KK <span style={{ color: 'black' }}>Spare Parts</span><span className="logo-slant"><span className="number-design"></span></span></h1>
           <div className="tagline">The Rider's Choice Since 2000</div>
         </div>

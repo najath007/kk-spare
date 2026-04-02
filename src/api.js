@@ -12,3 +12,13 @@ export const removeFromCart = (product_id) => fetch(`${BASE}/cart/${product_id}`
 export const clearCart = () => fetch(`${BASE}/cart`, { method: 'DELETE', headers: authHeaders() }).then(r => r.json());
 export const placeOrder = (payment_method = 'COD') => fetch(`${BASE}/orders`, { method: 'POST', headers: authHeaders(), body: JSON.stringify({ payment_method }) }).then(r => r.json());
 export const getOrders = () => fetch(`${BASE}/orders`, { headers: authHeaders() }).then(r => r.json());
+
+// Admin Endpoints
+export const getProducts = () => fetch(`${BASE}/products`).then(r => r.json());
+export const getAllOrders = () => fetch(`${BASE}/orders/all`, { headers: authHeaders() }).then(r => r.json());
+export const getAllUsers = () => fetch(`${BASE}/auth/users`, { headers: authHeaders() }).then(r => r.json());
+export const addProduct = (data) => fetch(`${BASE}/products`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(data) }).then(r => r.json());
+export const updateProduct = (id, data) => fetch(`${BASE}/products/${id}`, { method: 'PUT', headers: authHeaders(), body: JSON.stringify(data) }).then(r => r.json());
+export const deleteProduct = (id) => fetch(`${BASE}/products/${id}`, { method: 'DELETE', headers: authHeaders() }).then(r => r.json());
+export const updateOrderStatus = (id, status) => fetch(`${BASE}/orders/${id}/status`, { method: 'PATCH', headers: authHeaders(), body: JSON.stringify({ status }) }).then(r => r.json());
+export const getCategories = () => fetch(`${BASE}/categories`).then(r => r.json());

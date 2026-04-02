@@ -3,7 +3,7 @@ import { FaPhoneAlt, FaSearch, FaUserCircle, FaShoppingCart } from 'react-icons/
 import './Header.css';
 import AuthModal from './AuthModal';
 
-export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, setIsAuthModalOpen, onLoginSuccess, onLogout, searchQuery, onSearchQueryChange }) {
+export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, setIsAuthModalOpen, onLoginSuccess, onLogout, searchQuery, onSearchQueryChange, isAdminView, onAdminToggle }) {
   return (
     <header className="header">
       <div className="container header-container">
@@ -39,9 +39,19 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
           <div className="auth-container" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             {user ? (
               <>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-hash-dark)', fontWeight: 600 }}>
-                  <FaUserCircle size={20} className="icon-accent" />
-                  <span>Hi, {user.name}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--color-hash-dark)', fontWeight: 600 }}>
+                  {user.role === 'admin' && (
+                    <button 
+                      onClick={onAdminToggle}
+                      style={{ background: 'none', border: '1px solid var(--color-accent)', color: 'var(--color-accent)', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
+                    >
+                      {isAdminView ? 'Store View' : 'Admin Panel'}
+                    </button>
+                  )}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <FaUserCircle size={20} className="icon-accent" />
+                    <span>Hi, {user.name}</span>
+                  </div>
                 </div>
                 <button 
                   onClick={onLogout} 

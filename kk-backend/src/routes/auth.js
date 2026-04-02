@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
-const { authMiddleware } = require('../middleware/auth');
+const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
@@ -33,6 +33,13 @@ router.post('/login', async (req, res) => {
     res.json({ message: 'Login successful', token, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
   } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
 });
+router.get('/users', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const [users] = await db.execute('SELECT id, name, email, phone, role, created_at FROM users ORDER BY created_at DESC');
+    res.json(users);
+  } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
+});
+
 router.get('/me', authMiddleware, async (req, res) => {
   try {
     const [users] = await db.execute('SELECT id, name, email, phone, role, created_at FROM users WHERE id = ?', [req.user.id]);

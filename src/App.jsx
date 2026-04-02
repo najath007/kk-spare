@@ -8,6 +8,7 @@ import ProductGrid from './components/ProductGrid';
 import ProductModal from './components/ProductModal';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
+import AdminPanel from './components/AdminPanel';
 import { addToCart, getCart } from './api';
 import './App.css';
 
@@ -19,6 +20,7 @@ function App() {
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isAdminView, setIsAdminView] = useState(false);
 
   const [user, setUser] = useState(() => {
     try {
@@ -107,6 +109,27 @@ function App() {
       .then(data => setSelectedProduct(data));
   };
 
+  if (isAdminView && user?.role === 'admin') {
+    return (
+      <div className="app-wrapper">
+        <Header 
+          user={user}
+          cartCount={cartCount}
+          onCartClick={() => setCartDrawerOpen(true)}
+          isAuthModalOpen={isAuthModalOpen}
+          setIsAuthModalOpen={setIsAuthModalOpen}
+          onLoginSuccess={handleLoginSuccess}
+          onLogout={handleLogout}
+          searchQuery={searchQuery}
+          onSearchQueryChange={setSearchQuery}
+          isAdminView={isAdminView}
+          onAdminToggle={() => setIsAdminView(false)}
+        />
+        <AdminPanel />
+      </div>
+    );
+  }
+
   return (
     <div className="app-wrapper">
       <Header 
@@ -119,6 +142,8 @@ function App() {
         onLogout={handleLogout}
         searchQuery={searchQuery}
         onSearchQueryChange={setSearchQuery}
+        isAdminView={isAdminView}
+        onAdminToggle={() => setIsAdminView(true)}
       />
       <Navigation />
       <Hero />

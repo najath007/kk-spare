@@ -33,6 +33,18 @@ router.post('/', async (req, res) => {
   } catch (err) { await conn.rollback(); console.error(err); res.status(500).json({ message: 'Server error' }); }
   finally { conn.release(); }
 });
+router.get('/all', adminMiddleware, async (req, res) => {
+  try {
+    const [orders] = await db.execute(`
+      SELECT o.*, u.name as user_name, u.email as user_email 
+      FROM orders o 
+      LEFT JOIN users u ON o.user_id = u.id 
+      ORDER BY o.created_at DESC
+    `);
+    res.json(orders);
+  } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
+});
+
 router.get('/', async (req, res) => {
   try {
     const [orders] = await db.execute(`SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC`, [req.user.id]);

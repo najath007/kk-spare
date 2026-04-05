@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AuthModal.css';
+import { BASE } from '../api';
 
 export default function AuthModal({ onClose, onSuccess }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -22,8 +23,8 @@ export default function AuthModal({ onClose, onSuccess }) {
     setError(null);
 
     const url = isLogin 
-      ? 'http://localhost:5000/api/auth/login' 
-      : 'http://localhost:5000/api/auth/register';
+      ? `${BASE}/auth/login` 
+      : `${BASE}/auth/register`;
     
     const payload = isLogin 
       ? { email: formData.email, password: formData.password }
@@ -52,7 +53,7 @@ export default function AuthModal({ onClose, onSuccess }) {
         onSuccess(data.user, data.token);
       } else {
         // Register only returns token, fetch /me for full user profile
-        const meRes = await fetch('http://localhost:5000/api/auth/me', {
+        const meRes = await fetch(`${BASE}/auth/me`, {
           headers: { 'Authorization': `Bearer ${data.token}` }
         });
         

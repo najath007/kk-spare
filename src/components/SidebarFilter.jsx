@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SidebarFilter.css';
+import { BASE } from '../api';
 
 export default function SidebarFilter({ 
   selectedCategory, 
@@ -11,8 +12,8 @@ export default function SidebarFilter({
   const [brands, setBrands] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/categories').then(r => r.json()).then(setCategories);
-    fetch('http://localhost:5000/api/brands').then(r => r.json()).then(data => setBrands(data.map(b => b.name)));
+    fetch(`${BASE}/categories`).then(r => r.json()).then(setCategories);
+    fetch(`${BASE}/brands`).then(r => r.json()).then(data => setBrands(data.map(b => b.name)));
   }, []);
 
   return (

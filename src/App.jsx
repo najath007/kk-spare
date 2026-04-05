@@ -9,7 +9,7 @@ import ProductModal from './components/ProductModal';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import AdminPanel from './components/AdminPanel';
-import { addToCart, getCart } from './api';
+import { BASE, addToCart, getCart } from './api';
 import './App.css';
 
 function App() {
@@ -77,7 +77,7 @@ function App() {
     if (selectedBike.model)  params.set('model', selectedBike.model);
     if (selectedBike.year)   params.set('year', selectedBike.year);
 
-    fetch(`http://localhost:5000/api/products?${params}`)
+    fetch(`${BASE}/products?${params}`)
       .then(r => r.json())
       .then(data => { setProducts(data); setLoading(false); })
       .catch(() => setLoading(false));
@@ -104,7 +104,7 @@ function App() {
   };
 
   const handleViewDetails = (product) => {
-    fetch(`http://localhost:5000/api/products/${product.id}`)
+    fetch(`${BASE}/products/${product.id}`)
       .then(r => r.json())
       .then(data => setSelectedProduct(data));
   };

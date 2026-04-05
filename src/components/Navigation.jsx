@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Navigation.css';
+import { BASE } from '../api';
 
 export default function Navigation() {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:5000/api/categories')
+    fetch(`${BASE}/categories`)
       .then(r => r.json())
       .then(setCategories);
   }, []);

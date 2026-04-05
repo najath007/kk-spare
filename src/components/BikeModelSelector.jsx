@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaMotorcycle, FaSearch } from 'react-icons/fa';
 import './BikeModelSelector.css';
+import { BASE } from '../api';
 
 export default function BikeModelSelector({ onFindParts }) {
   const [brand, setBrand] = useState('');
@@ -11,7 +12,7 @@ export default function BikeModelSelector({ onFindParts }) {
   const YEARS = ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'];
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/brands').then(r => r.json()).then(data => setBrands(data.map(b => b.name)));
+    fetch(`${BASE}/brands`).then(r => r.json()).then(data => setBrands(data.map(b => b.name)));
   }, []);
 
   const handleBrandChange = (e) => {
@@ -20,7 +21,7 @@ export default function BikeModelSelector({ onFindParts }) {
     setModel('');
     setYear('');
     if (selected) {
-      fetch(`http://localhost:5000/api/brands/${selected}/models`)
+      fetch(`${BASE}/brands/${selected}/models`)
         .then(r => r.json())
         .then(data => setModels(data.map(m => m.name)));
     } else {

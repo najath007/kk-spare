@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://kk-spare-parts.vercel.app'],
+  origin: ['http://localhost:5173', 'https://kk-spare.vercel.app', 'https://kk-spare-parts.vercel.app'],
   credentials: true
 }));
 app.use(express.json());

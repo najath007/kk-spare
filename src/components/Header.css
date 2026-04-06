@@ -146,3 +146,26 @@
     display: block;
   }
 }
+
+@media (max-width: 768px) {
+  .header-container {
+    gap: 1rem;
+  }
+  
+  .logo-text {
+    font-size: 2rem;
+  }
+  
+  .search-bar {
+    min-width: 100%;
+    order: 3;
+  }
+  
+  .header-actions {
+    gap: 1rem;
+  }
+  
+  .contact-info {
+    display: none; /* Hide contact text to save space on mobile */
+  }
+}

@@ -67,3 +67,12 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+@media (max-width: 768px) {
+  .bike-selector-form {
+    grid-template-columns: 1fr;
+  }
+  .bike-selector-container {
+    margin-top: -1.5rem;
+  }
+}

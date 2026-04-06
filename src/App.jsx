@@ -155,8 +155,8 @@ function App() {
       <div className="container" id="shop-section">
         <BikeModelSelector onFindParts={handleFindParts} onReset={handleResetBike} />
 
-        <div className="main-layout" style={{ display: 'flex', gap: '2rem', marginTop: '3rem' }}>
-          <div className="sidebar-column" style={{ width: '280px', flexShrink: 0 }}>
+        <div className="main-layout">
+          <div className="sidebar-column">
             <SidebarFilter 
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
@@ -165,13 +165,13 @@ function App() {
             />
           </div>
           
-          <div className="products-column" style={{ flex: 1 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <h2 style={{ fontSize: '1.75rem', color: 'var(--color-hash-dark)' }}>
+          <div className="products-column">
+            <div className="products-header">
+              <h2 className="products-title">
                 {selectedCategory ? `${selectedCategory} Parts` : 'All Parts'}
-                {selectedBike.brand && <span style={{ fontSize: '1rem', color: 'var(--color-success)', marginLeft: '1rem' }}> (Filtered for {selectedBike.year} {selectedBike.brand} {selectedBike.model})</span>}
+                {selectedBike.brand && <span className="filtered-bike-label"> (Filtered for {selectedBike.year} {selectedBike.brand} {selectedBike.model})</span>}
               </h2>
-              <span style={{ color: 'var(--color-hash-light)', fontWeight: 600 }}>{products.length} items found</span>
+              <span className="items-count">{products.length} items found</span>
             </div>
 
             {loading 

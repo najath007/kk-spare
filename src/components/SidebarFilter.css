@@ -80,3 +80,11 @@
   background-color: #fff7ed; /* Light orange tint */
   border-color: #fed7aa;
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: static;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+}

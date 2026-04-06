@@ -62,4 +62,11 @@ router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
     res.json({ message: 'Product deleted' });
   } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
 });
+router.post('/:id/compatibility', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const { brand_id, model_id, year_id } = req.body;
+    await db.execute('INSERT IGNORE INTO product_compatibility (product_id, brand_id, model_id, year_id) VALUES (?, ?, ?, ?)', [req.params.id, brand_id, model_id, year_id]);
+    res.json({ message: 'Compatibility added' });
+  } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
+});
 module.exports = router;

@@ -103,6 +103,10 @@ function App() {
     document.getElementById('shop-section').scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleResetBike = () => {
+    setSelectedBike({ brand: '', model: '', year: '' });
+  };
+
   const handleViewDetails = (product) => {
     fetch(`${BASE}/products/${product.id}`)
       .then(r => r.json())
@@ -149,7 +153,7 @@ function App() {
       <Hero />
       
       <div className="container" id="shop-section">
-        <BikeModelSelector onFindParts={handleFindParts} />
+        <BikeModelSelector onFindParts={handleFindParts} onReset={handleResetBike} />
 
         <div className="main-layout" style={{ display: 'flex', gap: '2rem', marginTop: '3rem' }}>
           <div className="sidebar-column" style={{ width: '280px', flexShrink: 0 }}>

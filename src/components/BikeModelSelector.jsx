@@ -3,7 +3,7 @@ import { FaMotorcycle, FaSearch } from 'react-icons/fa';
 import './BikeModelSelector.css';
 import { BASE } from '../api';
 
-export default function BikeModelSelector({ onFindParts }) {
+export default function BikeModelSelector({ onFindParts, onReset }) {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [year, setYear] = useState('');
@@ -41,6 +41,14 @@ export default function BikeModelSelector({ onFindParts }) {
     }
   };
 
+  const handleResetFilters = () => {
+    setBrand('');
+    setModel('');
+    setYear('');
+    setModels([]);
+    if (onReset) onReset();
+  };
+
   return (
     <div className="bike-selector-container">
       <div className="bike-selector-header">
@@ -74,9 +82,14 @@ export default function BikeModelSelector({ onFindParts }) {
           </select>
         </div>
 
-        <button type="submit" className="btn btn-primary" disabled={!brand || !model || !year}>
-          <FaSearch /> Find My Parts
-        </button>
+        <div className="button-group" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', paddingBottom: '5px' }}>
+          <button type="submit" className="btn btn-primary" disabled={!brand || !model || !year}>
+            <FaSearch /> Find My Parts
+          </button>
+          <button type="button" className="btn" onClick={handleResetFilters} style={{ backgroundColor: '#e2e8f0', color: '#1f2937' }}>
+            Reset
+          </button>
+        </div>
       </form>
     </div>
   );

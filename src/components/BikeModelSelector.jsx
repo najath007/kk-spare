@@ -82,12 +82,12 @@ export default function BikeModelSelector({ onFindParts, onReset }) {
           </select>
         </div>
 
-        <div className="button-group" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', paddingBottom: '5px' }}>
-          <button type="submit" className="btn btn-primary" disabled={!brand || !model || !year}>
-            <FaSearch /> Find My Parts
-          </button>
+        <div className="button-group" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'stretch' }}>
           <button type="button" className="btn" onClick={handleResetFilters} style={{ backgroundColor: '#e2e8f0', color: '#1f2937' }}>
             Reset
+          </button>
+          <button type="submit" className="btn btn-primary" disabled={!brand || !model || !year}>
+            <FaSearch /> Find My Parts
           </button>
         </div>
       </form>

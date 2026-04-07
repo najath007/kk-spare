@@ -5,7 +5,7 @@
 
 .hero-background {
   width: 100%;
-  height: clamp(400px, 60vh, 600px);
+  height: clamp(300px, 50vh, 600px);
   background-size: cover;
   background-position: center;
   position: relative;
@@ -31,9 +31,9 @@
 }
 
 .hero-title {
-  font-size: clamp(3rem, 5vw, 5rem);
-  line-height: 1;
-  margin-bottom: 1.5rem;
+  font-size: clamp(2rem, 8vw, 5rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
   letter-spacing: -1px;
 }
 
@@ -42,8 +42,8 @@
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
-  margin-bottom: 3rem;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  margin-bottom: 2rem;
   color: #e2e8f0;
   max-width: 500px;
   line-height: 1.6;

@@ -10,6 +10,7 @@ export default function SidebarFilter({
 }) {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     fetch(`${BASE}/categories`).then(r => r.json()).then(setCategories);
@@ -18,9 +19,14 @@ export default function SidebarFilter({
 
   return (
     <aside className="sidebar">
-      <div className="filter-section">
-        <h3 className="filter-title">Categories</h3>
-        <ul className="filter-list">
+      <div className="mobile-filter-toggle" onClick={() => setIsOpen(!isOpen)}>
+        <span>Filters & Categories</span>
+        <span>{isOpen ? '▲' : '▼'}</span>
+      </div>
+      <div className={`filter-content ${isOpen ? 'open' : ''}`}>
+        <div className="filter-section">
+          <h3 className="filter-title">Categories</h3>
+          <ul className="filter-list">
           <li 
             className={`filter-item ${!selectedCategory ? 'active' : ''}`}
             onClick={() => setSelectedCategory(null)}
@@ -71,6 +77,7 @@ export default function SidebarFilter({
         <h4>Need Help?</h4>
         <p>Chat with a mechanic.</p>
         <button className="btn btn-primary mt-2">Live Chat</button>
+      </div>
       </div>
     </aside>
   );

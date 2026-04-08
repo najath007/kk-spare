@@ -8,6 +8,7 @@ import ProductModal from './components/ProductModal';
 import AdminPanel from './components/AdminPanel';
 import HomePage from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
+import TrackOrderPage from './pages/TrackOrderPage';
 import { getCart, addToCart, BASE } from './api';
 import './App.css';
 
@@ -120,6 +121,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage searchQuery={searchQuery} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} />} />
         <Route path="/category/:categoryId" element={<CategoryPage searchQuery={searchQuery} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} />} />
+        <Route path="/track-order" element={<TrackOrderPage user={user} />} />
       </Routes>
 
       <Footer />

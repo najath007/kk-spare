@@ -1,13 +1,15 @@
 import React from 'react';
-import { FaPhoneAlt, FaSearch, FaUserCircle, FaShoppingCart } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaPhoneAlt, FaSearch, FaUserCircle, FaShoppingCart, FaTruck } from 'react-icons/fa';
 import './Header.css';
 import AuthModal from './AuthModal';
 
 export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, setIsAuthModalOpen, onLoginSuccess, onLogout, searchQuery, onSearchQueryChange, isAdminView, onAdminToggle }) {
+  const navigate = useNavigate();
   return (
     <header className="header">
       <div className="container header-container">
-        <div className="logo-container" onClick={() => window.location.href = '/'} style={{ cursor: 'pointer' }} title="Go to Home">
+        <div className="logo-container" onClick={() => navigate('/')} style={{ cursor: 'pointer' }} title="Go to Home">
           <h1 className="logo-text">KK <span style={{ color: 'black' }}>Spare Parts</span><span className="logo-slant"><span className="number-design"></span></span></h1>
           <div className="tagline">The Rider's Choice Since 2000</div>
         </div>
@@ -23,12 +25,13 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
         </div>
 
         <div className="header-actions">
-          <div className="contact-info">
-            <FaPhoneAlt className="icon-accent" />
-            <span>123456789</span>
+          <div className="contact-info" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+            <Link to="/track-order" style={{ textDecoration: 'none', color: 'var(--color-hash-dark)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <FaTruck className="icon-accent" /> Track Order
+            </Link>
           </div>
 
-          <div className="cart-container" style={{ marginRight: '1rem' }}>
+          <div className="cart-container" style={{ margin: '0 1rem' }}>
             <button className="cart-btn" onClick={onCartClick}>
               <FaShoppingCart size={24} />
               {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
@@ -40,6 +43,7 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
             {user ? (
               <>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--color-hash-dark)', fontWeight: 600 }}>
+                  <Link to="/track-order" style={{ textDecoration: 'none', color: 'var(--color-hash-dark)' }}>My Orders</Link>
                   {user.role === 'admin' && (
                     <button 
                       onClick={onAdminToggle}

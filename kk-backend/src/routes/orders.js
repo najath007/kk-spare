@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 const { authMiddleware, adminMiddleware } = require('../middleware/auth');
+
+// Public endpoint for guest order tracking
+router.get('/track/:id', async (req, res) => {
+  try {
+    const [orders] = await db.execute('SELECT id, status, total_amount, created_at FROM orders WHERE id = ?', [req.params.id]);
+    if (!orders.length) return res.status(404).json({ message: 'Order not found' });
+    res.json(orders[0]);
+  } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
+});
+
 router.use(authMiddleware);
 router.post('/', async (req, res) => {
   const conn = await (require('../config/db')).getConnection();

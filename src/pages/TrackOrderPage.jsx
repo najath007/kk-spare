@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BASE } from '../api';
+import { Helmet } from 'react-helmet-async';
 import './TrackOrderPage.css';
 
 export default function TrackOrderPage({ user }) {
@@ -88,6 +89,10 @@ export default function TrackOrderPage({ user }) {
   if (!user) {
     return (
       <div className="track-order-page container">
+        <Helmet>
+          <title>Track Your Order | KK Spare Parts</title>
+          <meta name="description" content="Enter your Order ID to see real-time updates on your KK Spare Parts shipment." />
+        </Helmet>
         <div className="guest-tracker">
           <h2>Track Your Order</h2>
           <p className="subtitle">Enter your Order ID below to check its current status.</p>
@@ -131,6 +136,10 @@ export default function TrackOrderPage({ user }) {
 
   return (
     <div className="track-order-page container user-orders-view">
+      <Helmet>
+        <title>My Order History | KK Spare Parts</title>
+        <meta name="description" content="View your order history and track ongoing shipments." />
+      </Helmet>
       <div className="orders-header">
         <h2>My Order History</h2>
         <p>Track your ongoing shipments and review past orders.</p>

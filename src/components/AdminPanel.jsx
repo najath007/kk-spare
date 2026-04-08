@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getProducts, getCategories, getAllOrders, getAllUsers, addProduct, updateProduct, deleteProduct, updateOrderStatus } from '../api';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import './AdminPanel.css';
 
 export default function AdminPanel() {
@@ -91,26 +92,100 @@ export default function AdminPanel() {
     }
   };
 
-  const renderDashboard = () => (
-    <div className="dashboard-grid">
-      <div className="stat-card">
-        <h3>Total Products</h3>
-        <div className="stat-value">{products.length}</div>
+  const renderDashboard = () => {
+    // Analytics Calculations
+    const validOrders = orders.filter(o => o.status !== 'cancelled');
+    const totalRevenue = validOrders.reduce((sum, o) => sum + Number(o.total_amount || 0), 0);
+    
+    // Status Data for Pie Chart
+    const statusCounts = orders.reduce((acc, o) => {
+      acc[o.status] = (acc[o.status] || 0) + 1;
+      return acc;
+    }, {});
+    
+    const pieData = Object.keys(statusCounts).map(status => ({
+      name: status.charAt(0).toUpperCase() + status.slice(1),
+      value: statusCounts[status]
+    }));
+    const COLORS = ['#f59e0b', '#3b82f6', '#10b981', '#6366f1', '#ef4444'];
+
+    // Revenue Timeline Data for Bar Chart
+    const revenueByDate = validOrders.reduce((acc, o) => {
+      const date = new Date(o.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+      acc[date] = (acc[date] || 0) + Number(o.total_amount);
+      return acc;
+    }, {});
+    
+    const barData = Object.keys(revenueByDate).map(date => ({
+      date,
+      revenue: revenueByDate[date]
+    }));
+
+    return (
+      <div className="dashboard-grid-container">
+        <div className="dashboard-grid">
+          <div className="stat-card revenue-card">
+            <h3>Total Revenue</h3>
+            <div className="stat-value">₹{totalRevenue.toLocaleString()}</div>
+          </div>
+          <div className="stat-card">
+            <h3>Total Orders</h3>
+            <div className="stat-value">{orders.length}</div>
+          </div>
+          <div className="stat-card">
+            <h3>Registered Users</h3>
+            <div className="stat-value">{users.length}</div>
+          </div>
+          <div className="stat-card">
+            <h3>Active Inventory</h3>
+            <div className="stat-value">{products.length} Parts</div>
+          </div>
+        </div>
+        
+        <div className="charts-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
+          <div className="chart-box" style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+            <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-hash-dark)' }}>Revenue Timeline</h3>
+            <div style={{ height: '300px', width: '100%' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={barData}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                  <XAxis dataKey="date" axisLine={false} tickLine={false} />
+                  <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `₹${value}`} />
+                  <RechartsTooltip cursor={{fill: '#f1f5f9'}} formatter={(value) => [`₹${value}`, 'Revenue']} />
+                  <Bar dataKey="revenue" fill="#ff5e14" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+          
+          <div className="chart-box" style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+            <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-hash-dark)' }}>Orders by Status</h3>
+            <div style={{ height: '300px', width: '100%' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={80}
+                    outerRadius={110}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <RechartsTooltip />
+                  <Legend verticalAlign="bottom" height={36} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="stat-card">
-        <h3>Total Categories</h3>
-        <div className="stat-value">{categories.length}</div>
-      </div>
-      <div className="stat-card">
-        <h3>Total Orders</h3>
-        <div className="stat-value">{orders.length}</div>
-      </div>
-      <div className="stat-card">
-        <h3>Registered Users</h3>
-        <div className="stat-value">{users.length}</div>
-      </div>
-    </div>
-  );
+    );
+  };
 
   const renderProducts = () => (
     <div className="admin-table-container">

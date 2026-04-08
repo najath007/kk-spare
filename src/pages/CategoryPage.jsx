@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import CategoryHero from '../components/CategoryHero';
 import ProductGrid from '../components/ProductGrid';
 import { BASE } from '../api';
+import { Helmet } from 'react-helmet-async';
 import { FaArrowLeft } from 'react-icons/fa';
 
 export default function CategoryPage({ searchQuery, onAddToCart, onViewDetails, wishlistItemIds, onToggleWishlist }) {
@@ -33,6 +34,10 @@ export default function CategoryPage({ searchQuery, onAddToCart, onViewDetails, 
 
   return (
     <div className="category-page">
+      <Helmet>
+        <title>Buy {categoryId.toUpperCase()} Spare Parts | KK Spare Parts</title>
+        <meta name="description" content={`Explore our wide selection of ${categoryId} parts. Guaranteed fitment for your motorcycle.`} />
+      </Helmet>
       <CategoryHero categoryName={categoryId} />
       
       <div className="container" style={{ paddingBottom: '4rem' }}>

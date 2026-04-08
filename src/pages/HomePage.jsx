@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import BikeModelSelector from '../components/BikeModelSelector';
 import SidebarFilter from '../components/SidebarFilter';
 import ProductGrid from '../components/ProductGrid';
+import { Helmet } from 'react-helmet-async';
 import { BASE } from '../api';
 
 export default function HomePage({ searchQuery, onAddToCart, onViewDetails, wishlistItemIds, onToggleWishlist }) {
@@ -52,6 +53,10 @@ export default function HomePage({ searchQuery, onAddToCart, onViewDetails, wish
 
   return (
     <>
+      <Helmet>
+        <title>Shop All Motorcycle Parts | KK Spare Parts</title>
+        <meta name="description" content="Browse our complete catalog of high-performance motorcycle parts. Filter by your exact bike model and year." />
+      </Helmet>
       <Hero />
       <div className="container" id="shop-section">
         <BikeModelSelector onFindParts={handleFindParts} onReset={handleResetBike} />

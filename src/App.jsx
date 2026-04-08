@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -139,7 +140,12 @@ function App() {
   }
 
   return (
+    <HelmetProvider>
     <div className="app-wrapper">
+      <Helmet>
+        <title>KK Spare Parts | The Rider's Choice Since 2000</title>
+        <meta name="description" content="Shop the largest inventory of premium OEM and Aftermarket motorcycle spare parts. Fast shipping, guaranteed fit, and expert support." />
+      </Helmet>
       <Header 
         user={user}
         cartCount={cartCount}
@@ -182,6 +188,7 @@ function App() {
         refreshCart={refreshCart}
       />
     </div>
+    </HelmetProvider>
   );
 }
 

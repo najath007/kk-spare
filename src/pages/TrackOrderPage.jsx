@@ -126,6 +126,9 @@ export default function TrackOrderPage({ user }) {
     );
   }
 
+  const activeOrders = userOrders.filter(o => !['delivered', 'cancelled'].includes(o.status?.toLowerCase()));
+  const pastOrders = userOrders.filter(o => ['delivered', 'cancelled'].includes(o.status?.toLowerCase()));
+
   return (
     <div className="track-order-page container user-orders-view">
       <div className="orders-header">
@@ -140,39 +143,80 @@ export default function TrackOrderPage({ user }) {
           <p>You haven't placed any orders yet.</p>
         </div>
       ) : (
-        <div className="orders-list">
-          {userOrders.map(order => (
-            <div key={order.id} className="order-history-card">
-              <div className="order-card-header">
-                <div>
-                  <h3>Order #{order.id}</h3>
-                  <span className="order-date">Placed on {new Date(order.created_at).toLocaleDateString()}</span>
-                </div>
-                <div className="order-total">
-                  <span>Total</span>
-                  <strong>${parseFloat(order.total_amount).toFixed(2)}</strong>
-                </div>
-              </div>
-              
-              <div className="order-timeline-wrapper">
-                {renderTimeline(order.status)}
-              </div>
+        <>
+          {activeOrders.length > 0 && (
+            <div className="orders-section">
+              <h3 className="section-title">Active Orders</h3>
+              <div className="orders-list">
+                {activeOrders.map(order => (
+                  <div key={order.id} className="order-history-card">
+                    <div className="order-card-header">
+                      <div>
+                        <h3>Order #{order.id}</h3>
+                        <span className="order-date">Placed on {new Date(order.created_at).toLocaleDateString()}</span>
+                      </div>
+                      <div className="order-total">
+                        <span>Total</span>
+                        <strong>${parseFloat(order.total_amount).toFixed(2)}</strong>
+                      </div>
+                    </div>
+                    
+                    <div className="order-timeline-wrapper">
+                      {renderTimeline(order.status)}
+                    </div>
 
-              <div className="order-items-list">
-                <h4>Items Ordered</h4>
-                {order.items && order.items.map((item, idx) => (
-                  <div key={idx} className="ordered-item">
-                    <img src={item.image} alt={item.name} className="item-thumbnail" />
-                    <div className="item-info">
-                      <span className="item-name">{item.name}</span>
-                      <span className="item-qty">Qty: {item.quantity} × ${item.unit_price}</span>
+                    <div className="order-items-list">
+                      <h4>Items Ordered</h4>
+                      {order.items && order.items.map((item, idx) => (
+                        <div key={idx} className="ordered-item">
+                          <img src={item.image} alt={item.name} className="item-thumbnail" />
+                          <div className="item-info">
+                            <span className="item-name">{item.name}</span>
+                            <span className="item-qty">Qty: {item.quantity} × ${item.unit_price}</span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
+          )}
+
+          {pastOrders.length > 0 && (
+            <div className="orders-section">
+              <h3 className="section-title">Past Orders</h3>
+              <div className="orders-list past-orders-list">
+                {pastOrders.map(order => (
+                  <div key={order.id} className="order-history-card compact-card">
+                    <div className="order-card-header" style={{ marginBottom: '1rem', borderBottom: 'none', paddingBottom: 0 }}>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                          <h3 style={{ margin: 0 }}>Order #{order.id}</h3>
+                          <span className={`badge status-${order.status}`}>{order.status}</span>
+                        </div>
+                        <span className="order-date" style={{ display: 'block', marginTop: '0.2rem' }}>Placed on {new Date(order.created_at).toLocaleDateString()}</span>
+                      </div>
+                      <div className="order-total">
+                        <span>Total</span>
+                        <strong>${parseFloat(order.total_amount).toFixed(2)}</strong>
+                      </div>
+                    </div>
+                    
+                    <div className="order-items-compact" style={{ padding: '1rem', background: '#f8fafc', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
+                      <strong>Items: </strong>
+                      {order.items && order.items.map((item, idx) => (
+                        <span key={idx}>
+                          {item.quantity}x {item.name}{idx < order.items.length - 1 ? ', ' : ''}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

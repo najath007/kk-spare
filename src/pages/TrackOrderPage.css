@@ -254,3 +254,26 @@
     margin-bottom: 0;
   }
 }
+
+.orders-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-hash-dark);
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.compact-card {
+  padding: 1.5rem;
+  background: var(--color-white);
+}
+
+.order-items-compact {
+  color: var(--color-hash-dark);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}

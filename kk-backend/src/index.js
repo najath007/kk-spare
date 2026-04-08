@@ -26,4 +26,43 @@ app.use('/api/wishlist', require('./routes/wishlist'));
 app.get('/api/health', (req, res) => res.json({ status: 'OK', project: 'KK Spare Parts' }));
 app.use((req, res) => res.status(404).json({ message: 'Route not found' }));
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`✅ KK Spare Parts API running on http://localhost:${PORT}`));
+
+const db = require('./config/db');
+async function initializeDatabase() {
+  try {
+    const conn = await db.getConnection();
+    await conn.query(`
+      CREATE TABLE IF NOT EXISTS wishlist (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        product_id INT NOT NULL,
+        added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+        UNIQUE KEY unique_wishlist (user_id, product_id)
+      )
+    `);
+    await conn.query(`
+      CREATE TABLE IF NOT EXISTS reviews (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        product_id INT NOT NULL,
+        rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+        comment TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+        UNIQUE KEY unique_review (user_id, product_id)
+      )
+    `);
+    conn.release();
+    console.log('✅ Database migration verified');
+  } catch (err) {
+    console.error('❌ Failed to verify database migration:', err);
+  }
+}
+
+app.listen(PORT, async () => {
+    await initializeDatabase();
+    console.log(`✅ KK Spare Parts API running on http://localhost:${PORT}`);
+});

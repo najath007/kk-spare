@@ -62,12 +62,16 @@ function App() {
     try {
       const token = localStorage.getItem('token');
       const res = await fetch(`${BASE}/wishlist`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (!res.ok) throw new Error('Failed to fetch wishlist');
       const data = await res.json();
       if (Array.isArray(data)) {
         setWishlistItemIds(data.map(item => item.id));
+      } else {
+        setWishlistItemIds([]);
       }
     } catch (e) {
       console.error(e);
+      setWishlistItemIds([]);
     }
   };
 

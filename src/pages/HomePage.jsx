@@ -28,9 +28,16 @@ export default function HomePage({ searchQuery, onAddToCart, onViewDetails, wish
     if (priceRange.max)      params.set('maxPrice', priceRange.max);
 
     fetch(`${BASE}/products?${params}`)
-      .then(r => r.json())
-      .then(data => { setProducts(data); setLoading(false); })
-      .catch(() => setLoading(false));
+       .then(r => {
+        if (!r.ok) throw new Error('API Failed');
+        return r.json();
+      })
+      .then(data => { 
+        if (Array.isArray(data)) setProducts(data); 
+        else setProducts([]);
+        setLoading(false); 
+      })
+      .catch(() => { setProducts([]); setLoading(false); });
   }, [searchQuery, selectedCategory, selectedBrandFilter, selectedBike, priceRange]);
 
   const handleFindParts = (bike) => {

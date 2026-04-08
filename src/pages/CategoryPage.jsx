@@ -19,9 +19,16 @@ export default function CategoryPage({ searchQuery, onAddToCart, onViewDetails, 
     if (searchQuery) params.set('search', searchQuery);
 
     fetch(`${BASE}/products?${params}`)
-      .then(r => r.json())
-      .then(data => { setProducts(data); setLoading(false); })
-      .catch(() => setLoading(false));
+      .then(r => {
+        if (!r.ok) throw new Error('API Failed');
+        return r.json();
+      })
+      .then(data => { 
+        if (Array.isArray(data)) setProducts(data); 
+        else setProducts([]);
+        setLoading(false); 
+      })
+      .catch(() => { setProducts([]); setLoading(false); });
   }, [categoryId, searchQuery]);
 
   return (

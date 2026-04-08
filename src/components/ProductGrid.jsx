@@ -2,7 +2,7 @@ import React from 'react';
 import ProductCard from './ProductCard';
 import './ProductGrid.css';
 
-export default function ProductGrid({ products, selectedBike, onAddToCart, onViewDetails }) {
+export default function ProductGrid({ products, selectedBike, onAddToCart, onViewDetails, wishlistItemIds, onToggleWishlist }) {
   if (products.length === 0) {
     return (
       <div className="empty-state">
@@ -27,6 +27,8 @@ export default function ProductGrid({ products, selectedBike, onAddToCart, onVie
             isCompatible={showBadge}
             onAddToCart={onAddToCart}
             onViewDetails={onViewDetails}
+            isWishlisted={wishlistItemIds?.includes(product.id)}
+            onToggleWishlist={onToggleWishlist}
           />
         );
       })}

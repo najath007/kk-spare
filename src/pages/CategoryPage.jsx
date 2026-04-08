@@ -5,7 +5,7 @@ import ProductGrid from '../components/ProductGrid';
 import { BASE } from '../api';
 import { FaArrowLeft } from 'react-icons/fa';
 
-export default function CategoryPage({ searchQuery, onAddToCart, onViewDetails }) {
+export default function CategoryPage({ searchQuery, onAddToCart, onViewDetails, wishlistItemIds, onToggleWishlist }) {
   const { categoryId } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -44,7 +44,7 @@ export default function CategoryPage({ searchQuery, onAddToCart, onViewDetails }
 
         {loading 
           ? <p style={{ color: 'var(--color-hash-light)', padding: '2rem', textAlign: 'center' }}>Loading parts...</p>
-          : <ProductGrid products={products} selectedBike={{brand: '', model: '', year: ''}} onAddToCart={onAddToCart} onViewDetails={onViewDetails} />
+          : <ProductGrid products={products} selectedBike={{brand: '', model: '', year: ''}} onAddToCart={onAddToCart} onViewDetails={onViewDetails} wishlistItemIds={wishlistItemIds} onToggleWishlist={onToggleWishlist} />
         }
       </div>
     </div>

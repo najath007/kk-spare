@@ -6,7 +6,9 @@ export default function SidebarFilter({
   selectedCategory, 
   setSelectedCategory, 
   selectedBrandFilter, 
-  setSelectedBrandFilter 
+  setSelectedBrandFilter,
+  priceRange,
+  setPriceRange
 }) {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -65,6 +67,29 @@ export default function SidebarFilter({
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="filter-section mt-4">
+        <h3 className="filter-title">Price Range (₹)</h3>
+        <div className="price-filter-inputs" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <input 
+             type="number" 
+             placeholder="Min" 
+             value={priceRange?.min || ''} 
+             onChange={(e) => setPriceRange(prev => ({ ...prev, min: e.target.value }))}
+             style={{ width: '100%', padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '4px' }}
+             min="0"
+          />
+          <span>-</span>
+          <input 
+             type="number" 
+             placeholder="Max" 
+             value={priceRange?.max || ''} 
+             onChange={(e) => setPriceRange(prev => ({ ...prev, max: e.target.value }))}
+             style={{ width: '100%', padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '4px' }}
+             min="0"
+          />
+        </div>
       </div>
 
       <div className="promo-banner mt-4">

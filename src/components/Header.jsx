@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaPhoneAlt, FaSearch, FaUserCircle, FaShoppingCart, FaTruck } from 'react-icons/fa';
+import { FaPhoneAlt, FaSearch, FaUserCircle, FaShoppingCart, FaTruck, FaHeart } from 'react-icons/fa';
 import './Header.css';
 import AuthModal from './AuthModal';
 
@@ -42,16 +42,17 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
             {user ? (
               <>
                 <div className="auth-profile">
+                  <Link to="/wishlist" className="my-orders-link" title="My Wishlist"><FaHeart style={{color: '#ef4444'}}/> <span className="action-label" style={{marginLeft: '4px'}}>Wishlist</span></Link>
                   <Link to="/track-order" className="my-orders-link"><span className="action-label">My Orders</span></Link>
+                  <Link to="/profile" className="my-orders-link" title="My Account">
+                    <FaUserCircle size={20} className="icon-accent" style={{marginRight: '6px'}}/>
+                    <span className="action-label" style={{ fontWeight: '500' }}>{user.name}</span>
+                  </Link>
                   {user.role === 'admin' && (
                     <button onClick={onAdminToggle} className="admin-toggle-btn">
                       {isAdminView ? 'Store' : 'Admin'}
                     </button>
                   )}
-                  <div className="user-greeting" title={`Logged in as ${user.name}`}>
-                    <FaUserCircle size={20} className="icon-accent" />
-                    <span className="action-label">Hi, {user.name}</span>
-                  </div>
                 </div>
                 <button onClick={onLogout} className="logout-btn">
                   Logout

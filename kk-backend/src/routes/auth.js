@@ -47,4 +47,25 @@ router.get('/me', authMiddleware, async (req, res) => {
     res.json(users[0]);
   } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
 });
+router.put('/profile', authMiddleware, async (req, res) => {
+  try {
+    const { name, phone, password } = req.body;
+    if (!name) return res.status(400).json({ message: 'Name is required' });
+    
+    let query = 'UPDATE users SET name = ?, phone = ?';
+    let params = [name, phone || null];
+    
+    if (password) {
+      query += ', password_hash = ?';
+      const hash = await bcrypt.hash(password, 10);
+      params.push(hash);
+    }
+    query += ' WHERE id = ?';
+    params.push(req.user.id);
+    
+    await db.execute(query, params);
+    res.json({ message: 'Profile updated successfully' });
+  } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
+});
+
 module.exports = router;

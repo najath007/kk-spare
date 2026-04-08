@@ -5,7 +5,7 @@ import SidebarFilter from '../components/SidebarFilter';
 import ProductGrid from '../components/ProductGrid';
 import { BASE } from '../api';
 
-export default function HomePage({ searchQuery, onAddToCart, onViewDetails }) {
+export default function HomePage({ searchQuery, onAddToCart, onViewDetails, wishlistItemIds, onToggleWishlist }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   
@@ -13,6 +13,7 @@ export default function HomePage({ searchQuery, onAddToCart, onViewDetails }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedBrandFilter, setSelectedBrandFilter] = useState(null);
   const [selectedBike, setSelectedBike] = useState({ brand: '', model: '', year: '' });
+  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
 
   useEffect(() => {
     setLoading(true);
@@ -23,12 +24,14 @@ export default function HomePage({ searchQuery, onAddToCart, onViewDetails }) {
     if (selectedBike.brand)  params.set('brand', selectedBike.brand);
     if (selectedBike.model)  params.set('model', selectedBike.model);
     if (selectedBike.year)   params.set('year', selectedBike.year);
+    if (priceRange.min)      params.set('minPrice', priceRange.min);
+    if (priceRange.max)      params.set('maxPrice', priceRange.max);
 
     fetch(`${BASE}/products?${params}`)
       .then(r => r.json())
       .then(data => { setProducts(data); setLoading(false); })
       .catch(() => setLoading(false));
-  }, [searchQuery, selectedCategory, selectedBrandFilter, selectedBike]);
+  }, [searchQuery, selectedCategory, selectedBrandFilter, selectedBike, priceRange]);
 
   const handleFindParts = (bike) => {
     // Scroll to products
@@ -53,6 +56,8 @@ export default function HomePage({ searchQuery, onAddToCart, onViewDetails }) {
               setSelectedCategory={setSelectedCategory}
               selectedBrandFilter={selectedBrandFilter}
               setSelectedBrandFilter={setSelectedBrandFilter}
+              priceRange={priceRange}
+              setPriceRange={setPriceRange}
             />
           </div>
           
@@ -67,7 +72,7 @@ export default function HomePage({ searchQuery, onAddToCart, onViewDetails }) {
 
             {loading 
               ? <p style={{ color: 'var(--color-hash-light)', padding: '2rem' }}>Loading parts...</p>
-              : <ProductGrid products={products} selectedBike={selectedBike} onAddToCart={onAddToCart} onViewDetails={onViewDetails} />
+              : <ProductGrid products={products} selectedBike={selectedBike} onAddToCart={onAddToCart} onViewDetails={onViewDetails} wishlistItemIds={wishlistItemIds} onToggleWishlist={onToggleWishlist} />
             }
           </div>
         </div>

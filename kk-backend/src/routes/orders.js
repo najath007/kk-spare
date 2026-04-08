@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 const { authMiddleware, adminMiddleware } = require('../middleware/auth');
+const { sendOrderEmail } = require('../utils/mailer');
 
 // Public endpoint for guest order tracking
 router.get('/track/:id', async (req, res) => {
@@ -28,6 +29,8 @@ router.post('/', async (req, res) => {
       if (item.stock < item.quantity) { await conn.rollback(); return res.status(400).json({ message: `Insufficient stock for ${item.name}` }); }
     }
     const total = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+    const [userRows] = await conn.execute('SELECT name, email FROM users WHERE id = ?', [req.user.id]);
+    const { name: userName, email: userEmail } = userRows[0];
     const [orderResult] = await conn.execute(
       `INSERT INTO orders (user_id, address_id, total_amount, payment_method) VALUES (?, ?, ?, ?)`,
       [req.user.id, address_id || null, total, payment_method]
@@ -40,6 +43,7 @@ router.post('/', async (req, res) => {
     await conn.execute('DELETE FROM cart WHERE user_id = ?', [req.user.id]);
     await conn.commit();
     res.status(201).json({ message: 'Order placed successfully', orderId, total });
+    sendOrderEmail(userEmail, userName, orderId, 'pending', total).catch(console.error);
   } catch (err) { await conn.rollback(); console.error(err); res.status(500).json({ message: 'Server error' }); }
   finally { conn.release(); }
 });
@@ -88,6 +92,11 @@ router.patch('/:id/status', adminMiddleware, async (req, res) => {
     const { status } = req.body;
     await db.execute('UPDATE orders SET status = ? WHERE id = ?', [status, req.params.id]);
     res.json({ message: 'Order status updated' });
+    
+    db.execute('SELECT o.total_amount, u.name, u.email FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = ?', [req.params.id])
+      .then(([rows]) => {
+        if (rows.length) sendOrderEmail(rows[0].email, rows[0].name, req.params.id, status, rows[0].total_amount).catch(console.error);
+      }).catch(console.error);
   } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
 });
 module.exports = router;

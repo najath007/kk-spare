@@ -9,6 +9,8 @@ import AdminPanel from './components/AdminPanel';
 import HomePage from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
 import TrackOrderPage from './pages/TrackOrderPage';
+import WishlistPage from './pages/WishlistPage';
+import ProfilePage from './pages/ProfilePage';
 import { getCart, addToCart, BASE } from './api';
 import './App.css';
 
@@ -19,6 +21,8 @@ function App() {
   const [cartCount, setCartCount] = useState(0);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isAdminView, setIsAdminView] = useState(false);
+  
+  const [wishlistItemIds, setWishlistItemIds] = useState([]);
 
   const [user, setUser] = useState(() => {
     try {
@@ -53,9 +57,38 @@ function App() {
     }
   };
 
+  const refreshWishlist = async () => {
+    if (!user) { setWishlistItemIds([]); return; }
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${BASE}/wishlist`, { headers: { 'Authorization': `Bearer ${token}` } });
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setWishlistItemIds(data.map(item => item.id));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     refreshCart();
+    refreshWishlist();
   }, [user]);
+
+  const handleToggleWishlist = async (productId, currentStatus) => {
+    if (!user) { setIsAuthModalOpen(true); return; }
+    const token = localStorage.getItem('token');
+    try {
+      if (currentStatus) {
+        await fetch(`${BASE}/wishlist/${productId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+        setWishlistItemIds(prev => prev.filter(id => id !== productId));
+      } else {
+        await fetch(`${BASE}/wishlist/${productId}`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
+        setWishlistItemIds(prev => [...prev, productId]);
+      }
+    } catch (err) { console.error(err); }
+  };
 
   // Modal State
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -119,9 +152,11 @@ function App() {
       <Navigation />
       
       <Routes>
-        <Route path="/" element={<HomePage searchQuery={searchQuery} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} />} />
-        <Route path="/category/:categoryId" element={<CategoryPage searchQuery={searchQuery} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} />} />
+        <Route path="/" element={<HomePage searchQuery={searchQuery} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} wishlistItemIds={wishlistItemIds} onToggleWishlist={handleToggleWishlist} />} />
+        <Route path="/category/:categoryId" element={<CategoryPage searchQuery={searchQuery} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} wishlistItemIds={wishlistItemIds} onToggleWishlist={handleToggleWishlist} />} />
         <Route path="/track-order" element={<TrackOrderPage user={user} />} />
+        <Route path="/wishlist" element={<WishlistPage user={user} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} wishlistItemIds={wishlistItemIds} onToggleWishlist={handleToggleWishlist} />} />
+        <Route path="/profile" element={<ProfilePage user={user} onProfileUpdate={setUser} />} />
       </Routes>
 
       <Footer />
@@ -132,6 +167,7 @@ function App() {
           onClose={() => setSelectedProduct(null)} 
           onAddToCart={handleAddToCart}
           onViewDetails={handleViewDetails}
+          user={user}
         />
       )}
 

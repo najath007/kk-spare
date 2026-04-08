@@ -25,13 +25,12 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
         </div>
 
         <div className="header-actions">
-          <div className="contact-info" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-            <Link to="/track-order" style={{ textDecoration: 'none', color: 'var(--color-hash-dark)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <FaTruck className="icon-accent" /> Track Order
-            </Link>
-          </div>
+          
+          <Link to="/track-order" className="track-order-link">
+            <FaTruck className="icon-accent" /> <span className="action-label">Track Order</span>
+          </Link>
 
-          <div className="cart-container" style={{ margin: '0 1rem' }}>
+          <div className="cart-container">
             <button className="cart-btn" onClick={onCartClick}>
               <FaShoppingCart size={24} />
               {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
@@ -39,37 +38,29 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
             <span className="cart-label">Cart</span>
           </div>
 
-          <div className="auth-container" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div className="auth-container">
             {user ? (
               <>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--color-hash-dark)', fontWeight: 600 }}>
-                  <Link to="/track-order" style={{ textDecoration: 'none', color: 'var(--color-hash-dark)' }}>My Orders</Link>
+                <div className="auth-profile">
+                  <Link to="/track-order" className="my-orders-link"><span className="action-label">My Orders</span></Link>
                   {user.role === 'admin' && (
-                    <button 
-                      onClick={onAdminToggle}
-                      style={{ background: 'none', border: '1px solid var(--color-accent)', color: 'var(--color-accent)', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
-                    >
-                      {isAdminView ? 'Store View' : 'Admin Panel'}
+                    <button onClick={onAdminToggle} className="admin-toggle-btn">
+                      {isAdminView ? 'Store' : 'Admin'}
                     </button>
                   )}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <div className="user-greeting" title={`Logged in as ${user.name}`}>
                     <FaUserCircle size={20} className="icon-accent" />
-                    <span>Hi, {user.name}</span>
+                    <span className="action-label">Hi, {user.name}</span>
                   </div>
                 </div>
-                <button 
-                  onClick={onLogout} 
-                  style={{ padding: '0.4rem 1rem', background: 'var(--color-hash-dark)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
-                >
+                <button onClick={onLogout} className="logout-btn">
                   Logout
                 </button>
               </>
             ) : (
-              <button 
-                onClick={() => setIsAuthModalOpen(true)} 
-                style={{ padding: '0.5rem 1.5rem', background: 'var(--color-accent)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
-              >
-                Login / Register
+              <button onClick={() => setIsAuthModalOpen(true)} className="login-btn">
+                <span className="action-label">Login / Register</span>
+                <span className="login-icon-mobile"><FaUserCircle size={20} /></span>
               </button>
             )}
           </div>

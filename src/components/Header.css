@@ -141,9 +141,94 @@
   display: none;
 }
 
+.track-order-link {
+  text-decoration: none;
+  color: var(--color-hash-dark);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.auth-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.auth-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-hash-dark);
+  font-weight: 600;
+}
+
+.my-orders-link {
+  text-decoration: none;
+  color: var(--color-hash-dark);
+}
+
+.admin-toggle-btn {
+  background: none;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.user-greeting {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.logout-btn {
+  padding: 0.4rem 1rem;
+  background: var(--color-hash-dark);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login-btn {
+  padding: 0.5rem 1.5rem;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.login-icon-mobile {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .cart-label {
     display: block;
+  }
+}
+
+@media (max-width: 900px) {
+  .header-actions {
+    gap: 0.8rem;
+  }
+  .auth-container, .auth-profile {
+    gap: 0.8rem;
+  }
+  .action-label.my-orders-label {
+    display: none;
   }
 }
 
@@ -164,9 +249,28 @@
   
   .header-actions {
     gap: 1rem;
+    flex: 1;
+    justify-content: flex-end;
   }
   
-  .contact-info {
-    display: none; /* Hide contact text to save space on mobile */
+  .action-label {
+    display: none;
+  }
+  
+  .login-icon-mobile {
+    display: block;
+  }
+
+  .login-btn {
+    padding: 0.5rem;
+  }
+  
+  .my-orders-link {
+    display: none; /* track order icon exists, space is tight */
+  }
+  
+  .admin-toggle-btn {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8rem;
   }
 }

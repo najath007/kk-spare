@@ -224,10 +224,10 @@
 
 @media (max-width: 900px) {
   .header-actions {
-    gap: 0.8rem;
+    gap: 1.5rem;
   }
   .auth-container, .auth-profile {
-    gap: 0.8rem;
+    gap: 1.5rem;
   }
   .action-label.my-orders-label {
     display: none;
@@ -250,7 +250,7 @@
   }
   
   .header-actions {
-    gap: 1rem;
+    gap: 1.8rem;
     flex: 1;
     justify-content: flex-end;
   }

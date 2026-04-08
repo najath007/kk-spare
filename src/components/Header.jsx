@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaPhoneAlt, FaSearch, FaUserCircle, FaShoppingCart, FaTruck, FaHeart } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
+import { FiTruck, FiShoppingCart, FiHeart, FiUser } from 'react-icons/fi';
 import './Header.css';
 import AuthModal from './AuthModal';
 
@@ -27,12 +28,12 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
         <div className="header-actions">
           
           <Link to="/track-order" className="track-order-link">
-            <FaTruck className="icon-accent" /> <span className="action-label">Track Order</span>
+            <FiTruck className="icon-accent" size={20} /> <span className="action-label">Track Order</span>
           </Link>
 
           <div className="cart-container">
             <button className="cart-btn" onClick={onCartClick}>
-              <FaShoppingCart size={24} />
+              <FiShoppingCart size={24} />
               {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
             </button>
             <span className="cart-label">Cart</span>
@@ -42,10 +43,10 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
             {user ? (
               <>
                 <div className="auth-profile">
-                  <Link to="/wishlist" className="header-icon-link" title="My Wishlist"><FaHeart style={{color: '#ef4444'}}/> <span className="action-label" style={{marginLeft: '4px'}}>Wishlist</span></Link>
+                  <Link to="/wishlist" className="header-icon-link" title="My Wishlist"><FiHeart style={{color: '#ef4444'}} size={20}/> <span className="action-label" style={{marginLeft: '4px'}}>Wishlist</span></Link>
                   <Link to="/track-order" className="my-orders-link"><span className="action-label">My Orders</span></Link>
                   <Link to="/profile" className="header-icon-link" title="My Account">
-                    <FaUserCircle size={20} className="icon-accent" style={{marginRight: '6px'}}/>
+                    <FiUser size={20} className="icon-accent" style={{marginRight: '6px'}}/>
                     <span className="action-label" style={{ fontWeight: '500' }}>{user.name}</span>
                   </Link>
                   {user.role === 'admin' && (
@@ -61,7 +62,7 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
             ) : (
               <button onClick={() => setIsAuthModalOpen(true)} className="login-btn">
                 <span className="action-label">Login / Register</span>
-                <span className="login-icon-mobile"><FaUserCircle size={20} /></span>
+                <span className="login-icon-mobile"><FiUser size={20} /></span>
               </button>
             )}
           </div>

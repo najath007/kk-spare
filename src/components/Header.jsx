@@ -42,9 +42,9 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
             {user ? (
               <>
                 <div className="auth-profile">
-                  <Link to="/wishlist" className="my-orders-link" title="My Wishlist"><FaHeart style={{color: '#ef4444'}}/> <span className="action-label" style={{marginLeft: '4px'}}>Wishlist</span></Link>
+                  <Link to="/wishlist" className="header-icon-link" title="My Wishlist"><FaHeart style={{color: '#ef4444'}}/> <span className="action-label" style={{marginLeft: '4px'}}>Wishlist</span></Link>
                   <Link to="/track-order" className="my-orders-link"><span className="action-label">My Orders</span></Link>
-                  <Link to="/profile" className="my-orders-link" title="My Account">
+                  <Link to="/profile" className="header-icon-link" title="My Account">
                     <FaUserCircle size={20} className="icon-accent" style={{marginRight: '6px'}}/>
                     <span className="action-label" style={{ fontWeight: '500' }}>{user.name}</span>
                   </Link>

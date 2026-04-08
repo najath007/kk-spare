@@ -164,9 +164,11 @@
   font-weight: 600;
 }
 
-.my-orders-link {
+.my-orders-link, .header-icon-link {
   text-decoration: none;
   color: var(--color-hash-dark);
+  display: flex;
+  align-items: center;
 }
 
 .admin-toggle-btn {

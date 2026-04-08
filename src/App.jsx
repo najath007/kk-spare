@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
-import Hero from './components/Hero';
-import BikeModelSelector from './components/BikeModelSelector';
-import SidebarFilter from './components/SidebarFilter';
-import ProductGrid from './components/ProductGrid';
-import ProductModal from './components/ProductModal';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
+import ProductModal from './components/ProductModal';
 import AdminPanel from './components/AdminPanel';
-import { BASE, addToCart, getCart } from './api';
+import HomePage from './pages/HomePage';
+import CategoryPage from './pages/CategoryPage';
+import { getCart, addToCart, BASE } from './api';
 import './App.css';
 
 function App() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
@@ -59,29 +56,8 @@ function App() {
     refreshCart();
   }, [user]);
 
-  // Filtering States
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedBrandFilter, setSelectedBrandFilter] = useState(null);
-  const [selectedBike, setSelectedBike] = useState({ brand: '', model: '', year: '' });
-  
   // Modal State
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-  useEffect(() => {
-    setLoading(true);
-    const params = new URLSearchParams();
-    if (searchQuery)         params.set('search', searchQuery);
-    if (selectedCategory)    params.set('category', selectedCategory);
-    if (selectedBrandFilter) params.set('brand', selectedBrandFilter);
-    if (selectedBike.brand)  params.set('brand', selectedBike.brand);
-    if (selectedBike.model)  params.set('model', selectedBike.model);
-    if (selectedBike.year)   params.set('year', selectedBike.year);
-
-    fetch(`${BASE}/products?${params}`)
-      .then(r => r.json())
-      .then(data => { setProducts(data); setLoading(false); })
-      .catch(() => setLoading(false));
-  }, [searchQuery, selectedCategory, selectedBrandFilter, selectedBike]);
 
   const handleAddToCart = async (product) => {
     if (!user) {
@@ -95,16 +71,6 @@ function App() {
     } catch (err) {
       console.error(err);
     }
-  };
-
-  const handleFindParts = (bike) => {
-    // Scroll to products
-    setSelectedBike(bike);
-    document.getElementById('shop-section').scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const handleResetBike = () => {
-    setSelectedBike({ brand: '', model: '', year: '' });
   };
 
   const handleViewDetails = (product) => {
@@ -150,37 +116,11 @@ function App() {
         onAdminToggle={() => setIsAdminView(true)}
       />
       <Navigation />
-      <Hero />
       
-      <div className="container" id="shop-section">
-        <BikeModelSelector onFindParts={handleFindParts} onReset={handleResetBike} />
-
-        <div className="main-layout">
-          <div className="sidebar-column">
-            <SidebarFilter 
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-              selectedBrandFilter={selectedBrandFilter}
-              setSelectedBrandFilter={setSelectedBrandFilter}
-            />
-          </div>
-          
-          <div className="products-column">
-            <div className="products-header">
-              <h2 className="products-title">
-                {selectedCategory ? `${selectedCategory} Parts` : 'All Parts'}
-                {selectedBike.brand && <span className="filtered-bike-label"> (Filtered for {selectedBike.year} {selectedBike.brand} {selectedBike.model})</span>}
-              </h2>
-              <span className="items-count">{products.length} items found</span>
-            </div>
-
-            {loading 
-              ? <p style={{ color: 'var(--color-hash-light)', padding: '2rem' }}>Loading parts...</p>
-              : <ProductGrid products={products} selectedBike={selectedBike} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} />
-            }
-          </div>
-        </div>
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage searchQuery={searchQuery} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} />} />
+        <Route path="/category/:categoryId" element={<CategoryPage searchQuery={searchQuery} onAddToCart={handleAddToCart} onViewDetails={handleViewDetails} />} />
+      </Routes>
 
       <Footer />
 

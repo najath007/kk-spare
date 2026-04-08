@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Navigation.css';
 import { BASE } from '../api';
 
@@ -16,7 +17,7 @@ export default function Navigation() {
         <ul className="nav-list">
           {categories.map((cat, idx) => (
             <li key={idx} className="nav-item">
-              <a href={`#${cat.name.toLowerCase()}`}>{cat.name}</a>
+              <Link to={`/category/${cat.name.toLowerCase()}`}>{cat.name}</Link>
             </li>
           ))}
         </ul>

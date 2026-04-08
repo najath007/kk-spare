@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Navigation.css';
 import { BASE } from '../api';
 
@@ -17,7 +17,7 @@ export default function Navigation() {
         <ul className="nav-list">
           {categories.map((cat, idx) => (
             <li key={idx} className="nav-item">
-              <Link to={`/category/${cat.name.toLowerCase()}`}>{cat.name}</Link>
+              <NavLink to={`/category/${cat.name.toLowerCase()}`}>{cat.name}</NavLink>
             </li>
           ))}
         </ul>

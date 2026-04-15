@@ -42,11 +42,20 @@
 
 .tagline {
   font-size: 0.75rem;
-  color: var(--color-hash-light);
+  color: var(--text-secondary);
   font-weight: 600;
   letter-spacing: 0.5px;
   margin-top: 6px;
   text-transform: uppercase;
+}
+
+/* Logo 'Spare Parts' text — dark on light header, white on dark header */
+.logo-spare {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .logo-spare {
+  color: #ffffff;
 }
 
 .search-bar {

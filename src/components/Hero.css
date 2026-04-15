@@ -25,7 +25,7 @@
 .hero-content {
   position: relative;
   z-index: 2;
-  color: var(--color-white);
+  color: #ffffff;
   padding: 2rem 0 6rem;
   max-width: 600px;
 }
@@ -75,7 +75,7 @@
   font-weight: 800;
   font-family: var(--font-logo);
   line-height: 1;
-  color: var(--color-white);
+  color: #ffffff;
 }
 
 .stat-label {

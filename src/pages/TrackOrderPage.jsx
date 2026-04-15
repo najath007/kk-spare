@@ -212,7 +212,7 @@ export default function TrackOrderPage({ user }) {
                       </div>
                     </div>
                     
-                    <div className="order-items-compact" style={{ padding: '1rem', background: '#f8fafc', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
+                    <div className="order-items-compact">
                       <strong>Items: </strong>
                       {order.items && order.items.map((item, idx) => (
                         <span key={idx}>

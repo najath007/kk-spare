@@ -34,6 +34,10 @@
   transition: transform 0.3s;
 }
 
+[data-theme="dark"] .product-image {
+  mix-blend-mode: normal;
+}
+
 .product-card:hover .product-image {
   transform: scale(1.05);
 }

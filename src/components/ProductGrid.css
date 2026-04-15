@@ -108,6 +108,10 @@
   mix-blend-mode: multiply;
 }
 
+[data-theme="dark"] .modal-image {
+  mix-blend-mode: normal;
+}
+
 .modal-info-col {
   display: flex;
   flex-direction: column;

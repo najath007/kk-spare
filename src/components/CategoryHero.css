@@ -54,6 +54,11 @@
   line-height: 1.6;
 }
 
+.hero-label {
+  color: #ffffff;
+  opacity: 0.85;
+}
+
 @keyframes slideUpFade {
   from {
     opacity: 0;

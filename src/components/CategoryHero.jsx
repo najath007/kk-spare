@@ -11,7 +11,7 @@ export default function CategoryHero({ categoryName }) {
         <div className="category-hero-overlay"></div>
         <div className="container category-hero-content">
           <h1 className="category-hero-title title-slant">
-            PREMIUM <br/><span className="highlight">{formattedName}</span>
+            <span className="hero-label">PREMIUM</span><br/><span className="highlight">{formattedName}</span>
           </h1>
           <p className="category-hero-subtitle">
             Browse our full selection of high-quality {categoryName} parts for all major brands. Built for performance and reliability.

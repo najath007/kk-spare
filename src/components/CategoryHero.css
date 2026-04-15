@@ -34,7 +34,7 @@
 .category-hero-content {
   position: relative;
   z-index: 2;
-  color: var(--color-white, #ffffff);
+  color: #ffffff;
   padding: 3rem 0;
   max-width: 800px;
   animation: slideUpFade 0.6s ease-out;

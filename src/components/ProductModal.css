@@ -13,7 +13,7 @@
 }
 
 .modal-content {
-  background-color: var(--card-bg, #ffffff);
+  background-color: var(--bg-card);
   border-radius: 12px;
   max-width: 800px;
   width: 100%;
@@ -21,7 +21,8 @@
   overflow-y: auto;
   position: relative;
   padding: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px var(--shadow);
+  color: var(--text-primary);
 }
 
 .modal-close {
@@ -30,14 +31,14 @@
   right: 20px;
   background: none;
   border: none;
-  color: var(--text-color, #333);
+  color: var(--text-secondary);
   cursor: pointer;
   padding: 5px;
   transition: color 0.2s;
 }
 
 .modal-close:hover {
-  color: var(--accent-color, #ff4c4c);
+  color: var(--color-accent);
 }
 
 .modal-grid {
@@ -51,7 +52,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f8f9fa;
+  background-color: var(--bg-secondary);
   border-radius: 8px;
   padding: 20px;
 }
@@ -60,6 +61,11 @@
   max-width: 100%;
   height: auto;
   object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] .modal-image {
+  mix-blend-mode: normal;
 }
 
 .modal-info-col {
@@ -76,19 +82,19 @@
 .modal-title {
   margin: 0 0 10px 0;
   font-size: 1.8rem;
-  color: var(--text-color, #333);
+  color: var(--text-primary);
 }
 
 .modal-price {
   font-size: 1.5rem;
-  color: var(--accent-color, #ff4c4c);
+  color: var(--color-accent);
   font-weight: bold;
   margin-bottom: 20px;
 }
 
 .modal-stock {
   margin-bottom: 15px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .modal-warranty {
@@ -97,13 +103,14 @@
   gap: 8px;
   margin-bottom: 25px;
   padding: 10px;
-  background-color: #f0f7ff;
+  background-color: var(--bg-secondary);
   border-radius: 6px;
-  color: #0056b3;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 .icon-accent {
-  color: #0056b3;
+  color: var(--color-accent);
 }
 
 .modal-compatibility {
@@ -113,12 +120,13 @@
 .modal-compatibility h4 {
   margin: 0 0 10px 0;
   font-size: 1.1rem;
+  color: var(--text-primary);
 }
 
 .modal-compatibility ul {
   margin: 0;
   padding-left: 20px;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .modal-compatibility li {
@@ -137,13 +145,14 @@
 }
 
 .modal-related {
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
   padding-top: 20px;
 }
 
 .modal-related h3 {
   margin: 0 0 15px 0;
   font-size: 1.2rem;
+  color: var(--text-primary);
 }
 
 .related-chips {
@@ -156,19 +165,19 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #f8f9fa;
+  background-color: var(--bg-secondary);
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
-  border: 1px solid #eaeaea;
+  border: 1px solid var(--border-color);
   transition: all 0.2s;
 }
 
 .related-chip:hover {
-  border-color: var(--accent-color, #ff4c4c);
-  background-color: #fff;
+  border-color: var(--color-accent);
+  background-color: var(--bg-card);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 8px var(--shadow);
 }
 
 .related-chip img {
@@ -186,7 +195,7 @@
 .related-name {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .related-price {
@@ -197,7 +206,7 @@
 .modal-bottom-sections {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -217,9 +226,10 @@
 
 .review-card {
   padding: 1.5rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background: #f8fafc;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .write-review-form {
@@ -227,17 +237,24 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border-color);
   padding-top: 2rem;
 }
 
 .write-review-form textarea {
   padding: 1rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 1rem;
   outline: none;
   resize: vertical;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.write-review-form textarea::placeholder {
+  color: var(--text-muted);
 }
 
 .write-review-form textarea:focus {

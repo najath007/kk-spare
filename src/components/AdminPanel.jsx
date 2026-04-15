@@ -143,23 +143,23 @@ export default function AdminPanel() {
         </div>
         
         <div className="charts-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem', marginTop: '2rem' }}>
-          <div className="chart-box" style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-            <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-hash-dark)' }}>Revenue Timeline</h3>
+          <div className="chart-box">
+            <h3 className="chart-title">Revenue Timeline</h3>
             <div style={{ height: '300px', width: '100%' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={barData}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                  <XAxis dataKey="date" axisLine={false} tickLine={false} />
-                  <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `₹${value}`} />
-                  <RechartsTooltip cursor={{fill: '#f1f5f9'}} formatter={(value) => [`₹${value}`, 'Revenue']} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" />
+                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)' }} />
+                  <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `₹${value}`} tick={{ fill: 'var(--text-secondary)' }} />
+                  <RechartsTooltip cursor={{fill: 'var(--bg-secondary)'}} formatter={(value) => [`₹${value}`, 'Revenue']} contentStyle={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }} />
                   <Bar dataKey="revenue" fill="#ff5e14" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
           
-          <div className="chart-box" style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-            <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-hash-dark)' }}>Orders by Status</h3>
+          <div className="chart-box">
+            <h3 className="chart-title">Orders by Status</h3>
             <div style={{ height: '300px', width: '100%' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -176,8 +176,8 @@ export default function AdminPanel() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <RechartsTooltip />
-                  <Legend verticalAlign="bottom" height={36} />
+                  <RechartsTooltip contentStyle={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }} />
+                  <Legend verticalAlign="bottom" height={36} formatter={(value) => <span style={{ color: 'var(--text-primary)' }}>{value}</span>} />
                 </PieChart>
               </ResponsiveContainer>
             </div>

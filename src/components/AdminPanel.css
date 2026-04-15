@@ -3,6 +3,20 @@
   padding: 2rem 0;
 }
 
+.chart-box {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.chart-title {
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
 .admin-header {
   display: flex;
   justify-content: space-between;

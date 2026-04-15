@@ -17,6 +17,20 @@ import './App.css';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Dark mode - persisted to localStorage
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('theme') === 'dark';
+  });
+
+  const toggleDarkMode = () => {
+    setDarkMode(prev => {
+      const next = !prev;
+      localStorage.setItem('theme', next ? 'dark' : 'light');
+      return next;
+    });
+  };
+
   
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -120,7 +134,7 @@ function App() {
 
   if (isAdminView && user?.role === 'admin') {
     return (
-      <div className="app-wrapper">
+      <div className="app-wrapper" data-theme={darkMode ? 'dark' : 'light'}>
         <Header 
           user={user}
           cartCount={cartCount}
@@ -133,6 +147,8 @@ function App() {
           onSearchQueryChange={setSearchQuery}
           isAdminView={isAdminView}
           onAdminToggle={() => setIsAdminView(false)}
+          darkMode={darkMode}
+          onToggleDarkMode={toggleDarkMode}
         />
         <AdminPanel />
       </div>
@@ -141,7 +157,7 @@ function App() {
 
   return (
     <HelmetProvider>
-    <div className="app-wrapper">
+    <div className="app-wrapper" data-theme={darkMode ? 'dark' : 'light'}>
       <Helmet>
         <title>KK Spare Parts | The Rider's Choice Since 2000</title>
         <meta name="description" content="Shop the largest inventory of premium OEM and Aftermarket motorcycle spare parts. Fast shipping, guaranteed fit, and expert support." />
@@ -158,6 +174,8 @@ function App() {
         onSearchQueryChange={setSearchQuery}
         isAdminView={isAdminView}
         onAdminToggle={() => setIsAdminView(true)}
+        darkMode={darkMode}
+        onToggleDarkMode={toggleDarkMode}
       />
       <Navigation />
       

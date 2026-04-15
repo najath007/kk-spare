@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
-import { FiTruck, FiShoppingCart, FiHeart, FiUser } from 'react-icons/fi';
+import { FiTruck, FiShoppingCart, FiHeart, FiUser, FiSun, FiMoon } from 'react-icons/fi';
 import './Header.css';
 import AuthModal from './AuthModal';
 
-export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, setIsAuthModalOpen, onLoginSuccess, onLogout, searchQuery, onSearchQueryChange, isAdminView, onAdminToggle }) {
+export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, setIsAuthModalOpen, onLoginSuccess, onLogout, searchQuery, onSearchQueryChange, isAdminView, onAdminToggle, darkMode, onToggleDarkMode }) {
   const navigate = useNavigate();
   return (
     <header className="header">
@@ -26,7 +26,21 @@ export default function Header({ user, cartCount, onCartClick, isAuthModalOpen, 
         </div>
 
         <div className="header-actions">
-          
+
+          {/* Dark / Light mode toggle */}
+          <button
+            className="theme-toggle-btn"
+            onClick={onToggleDarkMode}
+            title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label="Toggle dark mode"
+          >
+            <span className={`theme-icon ${!darkMode ? 'active' : ''}`}><FiSun size={18}/></span>
+            <span className="theme-track">
+              <span className="theme-thumb" style={{ transform: darkMode ? 'translateX(20px)' : 'translateX(0)' }} />
+            </span>
+            <span className={`theme-icon ${darkMode ? 'active' : ''}`}><FiMoon size={16}/></span>
+          </button>
+
           <Link to="/track-order" className="track-order-link">
             <FiTruck className="icon-accent" size={20} /> <span className="action-label">Track Order</span>
           </Link>

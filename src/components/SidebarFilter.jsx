@@ -71,22 +71,22 @@ export default function SidebarFilter({
 
       <div className="filter-section mt-4">
         <h3 className="filter-title">Price Range (₹)</h3>
-        <div className="price-filter-inputs" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+        <div className="price-filter-inputs">
           <input 
              type="number" 
              placeholder="Min" 
              value={priceRange?.min || ''} 
              onChange={(e) => setPriceRange(prev => ({ ...prev, min: e.target.value }))}
-             style={{ width: '100%', padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '4px' }}
+             className="price-input"
              min="0"
           />
-          <span>-</span>
+          <span className="price-separator">-</span>
           <input 
              type="number" 
              placeholder="Max" 
              value={priceRange?.max || ''} 
              onChange={(e) => setPriceRange(prev => ({ ...prev, max: e.target.value }))}
-             style={{ width: '100%', padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '4px' }}
+             className="price-input"
              min="0"
           />
         </div>
@@ -95,8 +95,9 @@ export default function SidebarFilter({
       <div className="promo-banner mt-4">
         <h4>Wholesale Orders</h4>
         <p>Get bulk discounts on OEM parts.</p>
-        <button className="btn btn-secondary mt-2">Contact Sales</button>
+        <button className="btn contact-sales-btn mt-2">Contact Sales</button>
       </div>
+
       
       <div className="promo-banner expert-chat mt-2">
         <h4>Need Help?</h4>

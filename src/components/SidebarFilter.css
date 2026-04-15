@@ -58,22 +58,70 @@
 }
 
 .promo-banner {
-  background-color: var(--color-offwhite);
+  background-color: var(--bg-secondary);
   padding: 1rem;
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   text-align: center;
 }
 
 .promo-banner h4 {
   margin-bottom: 0.25rem;
-  color: var(--color-hash-dark);
+  color: var(--text-primary);
 }
 
 .promo-banner p {
   font-size: 0.8rem;
-  color: var(--color-hash-light);
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
+}
+
+.price-filter-inputs {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.price-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--input-border, var(--border-color));
+  border-radius: 4px;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.price-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.price-separator {
+  color: var(--text-secondary);
+}
+
+.contact-sales-btn {
+  background-color: #1e293b;
+  color: #ffffff;
+  border: 1px solid transparent;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.contact-sales-btn:hover {
+  background-color: #0f172a;
+}
+
+[data-theme="dark"] .contact-sales-btn {
+  background-color: #334155;
+}
+[data-theme="dark"] .contact-sales-btn:hover {
+  background-color: #475569;
 }
 
 .expert-chat {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BASE } from '../api';
 import { Helmet } from 'react-helmet-async';
+import { FaBoxOpen, FaCheckCircle, FaShippingFast, FaHome } from 'react-icons/fa';
 import './TrackOrderPage.css';
 
 export default function TrackOrderPage({ user }) {
@@ -13,10 +14,10 @@ export default function TrackOrderPage({ user }) {
   const [loadingOrders, setLoadingOrders] = useState(false);
 
   const steps = [
-    { key: 'pending', label: 'Pending', icon: '📦' },
-    { key: 'confirmed', label: 'Confirmed', icon: '✅' },
-    { key: 'shipped', label: 'Shipped', icon: '🚚' },
-    { key: 'delivered', label: 'Delivered', icon: '🏠' }
+    { key: 'pending', label: 'Pending', icon: <FaBoxOpen /> },
+    { key: 'confirmed', label: 'Confirmed', icon: <FaCheckCircle /> },
+    { key: 'shipped', label: 'Shipped', icon: <FaShippingFast /> },
+    { key: 'delivered', label: 'Delivered', icon: <FaHome /> }
   ];
 
   useEffect(() => {

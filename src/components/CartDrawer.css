@@ -11,12 +11,13 @@
 .cart-drawer {
   width: 100%;
   max-width: 400px;
-  background: white;
+  background: var(--bg-card);
   height: 100%;
   display: flex;
   flex-direction: column;
   box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.3s ease-out forwards;
+  color: var(--text-primary);
 }
 
 @keyframes slideIn {
@@ -26,12 +27,12 @@
 
 .cart-drawer-header {
   padding: 1.5rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--color-hash-dark);
-  color: white;
+  background: var(--bg-nav);
+  color: #ffffff;
 }
 
 .cart-drawer-header h2 {
@@ -42,7 +43,7 @@
 .cart-drawer-close {
   background: none;
   border: none;
-  color: white;
+  color: #ffffff;
   font-size: 2rem;
   cursor: pointer;
   line-height: 1;
@@ -60,7 +61,7 @@
   gap: 1rem;
   padding-bottom: 1.5rem;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .cart-item-img {
@@ -68,7 +69,13 @@
   height: 70px;
   object-fit: contain;
   border-radius: 4px;
-  background: #fff;
+  background: var(--bg-secondary);
+  mix-blend-mode: multiply;
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .cart-item-img {
+  mix-blend-mode: normal;
 }
 
 .cart-item-details {
@@ -77,7 +84,7 @@
 
 .cart-item-title {
   font-weight: 600;
-  color: var(--color-hash-dark);
+  color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
 
@@ -94,13 +101,21 @@
 }
 
 .qty-btn {
-  background: #f0f0f0;
-  border: none;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   width: 28px;
   height: 28px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-btn:hover {
+  background: var(--border-color);
 }
 
 .remove-btn {
@@ -115,8 +130,8 @@
 
 .cart-drawer-footer {
   padding: 1.5rem;
-  border-top: 1px solid #eee;
-  background: #fafafa;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
 }
 
 .cart-total {
@@ -125,7 +140,7 @@
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: var(--color-hash-dark);
+  color: var(--text-primary);
 }
 
 .checkout-btn {
@@ -152,7 +167,7 @@
 
 .cart-message {
   text-align: center;
-  color: var(--color-hash-light);
+  color: var(--text-secondary);
   margin-top: 2rem;
   font-size: 1.1rem;
 }

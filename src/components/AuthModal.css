@@ -10,12 +10,12 @@
 }
 
 .auth-modal-content {
-  background: white;
+  background: var(--bg-card);
   width: 90%;
   max-width: 400px;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px var(--shadow);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@
 
 .auth-tabs {
   display: flex;
-  background: var(--color-hash-dark);
+  background: var(--bg-nav);
   position: relative;
 }
 
@@ -71,15 +71,18 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: var(--color-hash-dark);
+  color: var(--text-primary);
 }
 
 .form-group input {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border, var(--border-color));
   border-radius: 4px;
   font-size: 1rem;
+  background: var(--input-bg);
+  color: var(--text-primary);
+  font-family: inherit;
 }
 
 .auth-submit-btn {
@@ -113,4 +116,10 @@
   margin-bottom: 1.25rem;
   font-size: 0.9rem;
   border: 1px solid #ffcdd2;
+}
+
+[data-theme="dark"] .auth-error {
+  background: #4a1010;
+  color: #ef9a9a;
+  border-color: #7f1d1d;
 }

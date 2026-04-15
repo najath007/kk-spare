@@ -1,15 +1,15 @@
 .bike-selector-container {
-  background-color: var(--color-white);
+  background-color: var(--bg-card);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px var(--shadow), 0 2px 4px -1px var(--shadow);
   margin-top: -3rem;
   position: relative;
   z-index: 10;
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color);
 }
 
 .bike-selector-header {
@@ -21,7 +21,7 @@
 
 .bike-selector-header h2 {
   font-size: 1.25rem;
-  color: var(--color-hash-dark);
+  color: var(--text-primary);
 }
 
 .icon-accent {
@@ -44,17 +44,17 @@
 .select-group label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-hash-light);
+  color: var(--text-secondary);
 }
 
 .select-group select {
   padding: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--input-border, var(--border-color));
   border-radius: 4px;
-  background-color: var(--color-offwhite);
+  background-color: var(--input-bg);
   font-family: inherit;
   font-size: 1rem;
-  color: var(--color-hash-dark);
+  color: var(--text-primary);
   outline: none;
   transition: border-color 0.2s;
 }

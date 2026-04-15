@@ -12,8 +12,9 @@ const dbConfig = {
   queueLimit: 0,
 };
 
-if (process.env.DB_HOST && !process.env.DB_HOST.includes('localhost') && !process.env.DB_HOST.includes('127.0.0.1')) {
-  dbConfig.ssl = { rejectUnauthorized: true };
+// Only enable SSL if explicitly requested via DB_SSL=true env var
+if (process.env.DB_SSL === 'true') {
+  dbConfig.ssl = { rejectUnauthorized: false };
 }
 
 const pool = process.env.DATABASE_URL || process.env.DB_URI 
